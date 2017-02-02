@@ -1,0 +1,31 @@
+body{
+	margin-top:60px;
+	//background-image:url(/singapore-expo/assets/images/background.jpg);
+	//background-repeat:no-repeat;
+	//background-attachment:fixed;
+	//background-size:100%;
+	//background-position:center center;
+}
+hr{
+	margin:10px 0px;
+}
+.upper {
+	text-transform: uppercase;
+}
+.pagination{
+	margin:0px;
+}
+.containers{
+	width:400px;
+	margin:0px auto;
+}
+.table{
+	margin-bottom:5px;
+}
+.contact{
+	display:inline-block;
+	width:100px;
+}
+.breadcrumb{
+	margin-bottom:10px;
+}
