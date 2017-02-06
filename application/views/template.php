@@ -3,10 +3,12 @@
 <head>
 	<meta charset="utf-8">
 	<title>Welcome to Singapore Expo</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<!-- CSS -->
 	<link href="<?php echo base_url();?>assets/jquery-ui-1.11.2.custom/jquery-ui.min.css" rel="stylesheet">		
 	<link href="<?php echo base_url();?>assets/bootstrap-3.3.2-dist/css/bootstrap.min.css" rel="stylesheet">
 	<link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
+	<script src="<?php echo base_url();?>assets/js/jquery-1.10.2.js"></script>
 </head>
 <body>
 	<!-- NAVBAR -->
@@ -44,7 +46,6 @@
 	</div>
 	
 	<!-- JS -->
-	<script src="<?php echo base_url();?>assets/js/jquery-1.10.2.js"></script>
 	<script src="<?php echo base_url();?>assets/jquery-ui-1.11.2.custom/jquery-ui.min.js"></script>	
 	<script src="<?php echo base_url();?>assets/bootstrap-3.3.2-dist/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="<?php echo base_url();?>assets/zclip/jquery.zclip.js"></script>

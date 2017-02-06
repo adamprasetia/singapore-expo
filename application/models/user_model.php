@@ -61,4 +61,14 @@ class User_model extends CI_Model{
 		$this->db->where('level',3);
 		return $this->db->get($this->table);
 	}
+
+	function telemarketer_dropdown(){
+		$result = $this->db->where('level',3);
+		$result = $this->db->get('user')->result();
+		$data[''] = '- Telemarketer -';
+		foreach($result as $r){
+			$data[$r->id] = $r->fullname;
+		}
+		return $data;
+	}	
 }

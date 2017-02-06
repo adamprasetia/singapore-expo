@@ -8,6 +8,7 @@
 		</div>
 		<div class="panel-footer">
 			<button type="submit" class="btn btn-primary btn-sm" onclick="return confirm('Are you sure')"><span class="glyphicon glyphicon-import"></span> Import</button>		
+			<a href="<?php echo base_url() ?>uploads/import.xls">Download Template</a>
 		</div>
 	</div>				
 <?php echo form_close();?>				

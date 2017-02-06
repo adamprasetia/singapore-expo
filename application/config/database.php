@@ -49,8 +49,8 @@ $active_group = 'default';
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'adam';
-$db['default']['password'] = 'z4mz4m';
+$db['default']['username'] = ($_SERVER['HTTP_HOST']=='localhost'?'root':'teguh');
+$db['default']['password'] = ($_SERVER['HTTP_HOST']=='localhost'?'':'cleopatra');
 $db['default']['database'] = 'singapore_expo';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';

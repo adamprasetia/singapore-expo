@@ -33,4 +33,14 @@ class Callhis_model extends CI_Model{
 		$this->db->where('id',$id);
 		$this->db->delete($this->table);
 	}
+	function get_status_phone($id){
+		$this->db->where('candidate_id',$id);		
+		$this->db->order_by('created','asc');		
+		$result = $this->db->get('callhis')->result();
+		$str = '';
+		foreach($result as $r){
+			$str .= $r->remark.', ';
+		}
+		return $str;
+	}	
 }

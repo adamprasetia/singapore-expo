@@ -19,7 +19,8 @@ class Candidate extends Member_Controller {
 			$date_to = $this->input->get('date_to');
 			$status_phone = $this->input->get('status_phone');
 			$status_data = $this->input->get('status_data');
-			return "?limit=$limit&search=$search&date_from=$date_from&date_to=$date_to&status_phone=$status_phone&status_data=$status_data&offset=$offset";
+			$telemarketer = $this->input->get('telemarketer');
+			return "?limit=$limit&search=$search&date_from=$date_from&date_to=$date_to&status_phone=$status_phone&status_data=$status_data&telemarketer=$telemarketer&offset=$offset";
 		}else{
 			$limit = $this->input->post('limit');
 			$search = $this->input->post('search');
@@ -27,7 +28,8 @@ class Candidate extends Member_Controller {
 			$date_to = $this->input->post('date_to');
 			$status_phone = $this->input->post('status_phone');
 			$status_data = $this->input->post('status_data');
-			redirect("candidate/show?limit=$limit&search=$search&date_from=$date_from&date_to=$date_to&status_phone=$status_phone&status_data=$status_data&offset=$offset");
+			$telemarketer = $this->input->post('telemarketer');
+			redirect("candidate/show?limit=$limit&search=$search&date_from=$date_from&date_to=$date_to&status_phone=$status_phone&status_data=$status_data&telemarketer=$telemarketer&offset=$offset");
 		}
 	}	
 	function filter_2(){
@@ -38,9 +40,10 @@ class Candidate extends Member_Controller {
 			$date_to = $this->input->get('date_to');
 			$status_phone = $this->input->get('status_phone');
 			$status_data = $this->input->get('status_data');
-			return "?limit=$limit&search=$search&date_from=$date_from&date_to=$date_to&status_phone=$status_phone&status_data=$status_data&offset=$offset";
+			$telemarketer = $this->input->post('telemarketer');
+			return "?limit=$limit&search=$search&date_from=$date_from&date_to=$date_to&status_phone=$status_phone&status_data=$status_data&telemarketer=$telemarketer&offset=$offset";
 	}
-	function show($order_column="id",$order_type="asc"){
+	function show($order_column="a.id",$order_type="asc"){
 		/* - Table - */
 		$tmp = array('table_open'=>'<table class="table table-bordered table-striped">');
 		$this->table->set_template($tmp);
@@ -52,6 +55,7 @@ class Candidate extends Member_Controller {
 			,anchor('candidate/show/tlp/'.($order_type=='asc' && $order_column=='tlp'?'desc':'asc').$this->filter(),'Telephone '.($order_column=='tlp'?sort_icon($order_type):''))
 			,anchor('candidate/show/status_phone/'.($order_type=='asc' && $order_column=='status_phone'?'desc':'asc').$this->filter(),'Status Phone'.($order_column=='status_phone'?sort_icon($order_type):''))
 			,anchor('candidate/show/status_data/'.($order_type=='asc' && $order_column=='status_data'?'desc':'asc').$this->filter(),'Status Data'.($order_column=='status_data'?sort_icon($order_type):''))
+			,anchor('candidate/show/telemarketer/'.($order_type=='asc' && $order_column=='telemarketer'?'desc':'asc').$this->filter(),'Telemarketer'.($order_column=='telemarketer'?sort_icon($order_type):''))
 			,anchor('candidate/show/note/'.($order_type=='asc' && $order_column=='note'?'desc':'asc').$this->filter(),'Note'.($order_column=='note'?sort_icon($order_type):''))
 		);
 		$offset = $this->input->get('offset');
@@ -63,8 +67,9 @@ class Candidate extends Member_Controller {
 				,anchor('candidate/phone/'.$r->id.$this->filter(),$r->serial)
 				,$r->fullname.' '.send_email($r->send_email)
 				,$r->tlp
-				,status_phone($r->status_phone).' <span class="badge">'.$this->callhis_model->count_from_candidate_id($r->id).'</span>'
+				,$this->callhis_model->get_status_phone($r->id)
 				,status_data($r->status_data)
+				,$r->telemarketer_name
 				,$r->note
 			);
 		}

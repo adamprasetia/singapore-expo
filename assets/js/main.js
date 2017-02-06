@@ -1,10 +1,4 @@
 $(document).ready(function(){	
-	/* - Deactive text submit on enter - */
-	$(document).on('keyup keypress', 'form input[type="text"]', function(e) {
-		if(e.which == 13) {
-			e.preventDefault();
-		}
-	});	
 	
 	/* Copy to Clipboard */	
 	var kode = $('span#mobile').text().substr(0, 2);

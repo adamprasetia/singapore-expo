@@ -9,39 +9,45 @@ class Candidate_model extends CI_Model{
 	function filter(){
 		$user_login = $this->session->userdata('user_login');
 		if($this->user_model->get_level_from_id($user_login)==3){
-			$this->db->where('telemarketer',$user_login);
-			$this->db->where('status_data <>','3');
+			$this->db->where('a.telemarketer',$user_login);
+			$this->db->where('a.status_data <>','3');
 		}
 		
 		$search = $this->input->get('search');
 		if($search<>''){
-			$this->db->where('(fullname like "%'.$search.'%" or tlp like "%'.$search.'%")');
+			$this->db->where('(a.serial like "%'.$search.'%" or a.fullname like "%'.$search.'%" or a.tlp like "%'.$search.'%")');
 		}
 		$status_phone = $this->input->get('status_phone');
 		if($status_phone<>''){
-			$this->db->where('status_phone',$status_phone);
+			$this->db->where('a.status_phone',$status_phone);
 		}
 		$status_data = $this->input->get('status_data');
 		if($status_data<>''){
-			$this->db->where('status_data',$status_data);
+			$this->db->where('a.status_data',$status_data);
 		}
 		if($this->input->get('date_from')<>'' && $this->input->get('date_to')<>''){
-			$this->db->where('date_format(date_dist,\'%Y-%m-%d\') >=',format_tanggal_barat($this->input->get('date_from')));
-			$this->db->where('date_format(date_dist,\'%Y-%m-%d\') <=',format_tanggal_barat($this->input->get('date_to')));
+			$this->db->where('date_format(a.date_dist,\'%Y-%m-%d\') >=',format_tanggal_barat($this->input->get('date_from')));
+			$this->db->where('date_format(a.date_dist,\'%Y-%m-%d\') <=',format_tanggal_barat($this->input->get('date_to')));
 		}				
+		$telemarketer = $this->input->get('telemarketer');
+		if($telemarketer<>''){
+			$this->db->where('a.telemarketer',$telemarketer);
+		}
 	}
 	function import($data){
 		$this->db->insert_batch($this->table,$data);
 	}	
-	function get($order_column='id',$order_type='asc',$limit=10,$offset=0){
+	function get($order_column='a.id',$order_type='asc',$limit=10,$offset=0){
 		$this->filter();
+		$this->db->select(array('a.*','b.fullname as telemarketer_name'));
 		$this->db->order_by($order_column,$order_type);
-		return $this->db->get($this->table,$limit,$offset);
+		$this->db->join('user b','a.telemarketer=b.id','left');
+		return $this->db->get($this->table.' a',$limit,$offset);
 	}
-	function export($order_column='id',$order_type='asc'){
+	function export($order_column='a.id',$order_type='asc'){
 		$this->filter();
 		$this->db->order_by($order_column,$order_type);
-		return $this->db->get($this->table);
+		return $this->db->get($this->table.' a');
 	}
 	function get_from_id($id){
 		$this->db->where('id',$id);
@@ -62,7 +68,8 @@ class Candidate_model extends CI_Model{
 	}	
 	function count_all(){
 		$this->filter();
-		return $this->db->count_all_results($this->table);
+		$this->db->join('user b','a.telemarketer=b.id','left');
+		return $this->db->count_all_results($this->table.' a');
 	}		
 	function phone($id){
 		$data = array(

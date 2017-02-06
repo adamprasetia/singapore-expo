@@ -216,3 +216,11 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+	/* - Deactive text submit on enter - */
+	$(document).on('keyup keypress', 'form input[type="text"]', function(e) {
+		if(e.which == 13) {
+			e.preventDefault();
+		}
+	});	
+</script>
