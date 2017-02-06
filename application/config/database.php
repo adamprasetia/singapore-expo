@@ -48,7 +48,7 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = '192.168.10.30';
+$db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'adam';
 $db['default']['password'] = 'z4mz4m';
 $db['default']['database'] = 'singapore_expo';
