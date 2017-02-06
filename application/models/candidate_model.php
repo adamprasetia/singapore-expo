@@ -125,7 +125,7 @@ class Candidate_model extends CI_Model{
 		$this->filter_dist();
 		$data = array(
 			'telemarketer'=>$telemarketer
-			//,'date_dist'=>date('Y-m-d H:i:s')
+			,'date_dist'=>date('Y-m-d')
 		);
 		$this->db->where('telemarketer','0');
 		$this->db->limit($limit);
