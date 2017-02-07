@@ -128,6 +128,7 @@ class Candidate_model extends CI_Model{
 			,'date_dist'=>date('Y-m-d')
 		);
 		$this->db->where('telemarketer','0');
+		$this->db->order_by('tlp','asc');
 		$this->db->limit($limit);
 		$this->db->update($this->table,$data);		
 	}
