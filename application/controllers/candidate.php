@@ -57,6 +57,7 @@ class Candidate extends Member_Controller {
 			,anchor('candidate/show/status_data/'.($order_type=='asc' && $order_column=='status_data'?'desc':'asc').$this->filter(),'Status Data'.($order_column=='status_data'?sort_icon($order_type):''))
 			,anchor('candidate/show/telemarketer/'.($order_type=='asc' && $order_column=='telemarketer'?'desc':'asc').$this->filter(),'Telemarketer'.($order_column=='telemarketer'?sort_icon($order_type):''))
 			,anchor('candidate/show/note/'.($order_type=='asc' && $order_column=='note'?'desc':'asc').$this->filter(),'Note'.($order_column=='note'?sort_icon($order_type):''))
+			,'History Call'
 		);
 		$offset = $this->input->get('offset');
 		$result = $this->candidate_model->get($order_column,$order_type,$this->limit,($offset<>''?$offset:0))->result();
@@ -67,10 +68,11 @@ class Candidate extends Member_Controller {
 				,anchor('candidate/phone/'.$r->id.$this->filter(),$r->serial)
 				,$r->fullname.' '.send_email($r->send_email)
 				,$r->tlp
-				,$this->callhis_model->get_status_phone($r->id)
+				,status_phone($r->status_phone)
 				,status_data($r->status_data)
 				,$r->telemarketer_name
 				,$r->note
+				,$this->callhis_model->get_status_phone($r->id)
 			);
 		}
 		$data['table'] = $this->table->generate();
